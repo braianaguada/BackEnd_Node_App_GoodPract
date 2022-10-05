@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongooseDelete = require("mongoose-delete"); //!PLUGIN PARA BORRADO LOGICO MONGO
 
 const TracksScheme = new mongoose.Schema(
   {
@@ -45,5 +46,6 @@ const TracksScheme = new mongoose.Schema(
     versionKey: false,
   }
 );
-
+//!IMPLEMENTE MONGOOSE-DELETE(AGREGA LA PROPIEDAD delete:false AL MODELO)
+TracksScheme.plugin(mongooseDelete, { overrideMethods: "all" }); //!overrideMethods: ME PERMITE SOBRESCRIBIR LOS METODOS NATIVOS DE MOONGOSE CON LOS DEL SOFT DELETE O BORRADO LOGICO
 module.exports = mongoose.model("tracks", TracksScheme);

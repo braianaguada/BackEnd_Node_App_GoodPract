@@ -46,7 +46,7 @@ const deleteItems = async (req, res) => {
   try {
     req = matchedData(req);
     const { id } = req;
-    const data = await tracksModel.deleteOne({ _id: id });
+    const data = await tracksModel.delete({ _id: id }); //!USO METODO DELETE(METODO DE MOONGOSE-DELETE(BORRADO LOGICO))
     res.send({ data });
   } catch (error) {
     handleHttpError(res, "ERROR_DELETE_ITEM");
