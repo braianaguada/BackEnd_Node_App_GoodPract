@@ -1,6 +1,6 @@
 const { check } = require("express-validator"); //!CHEQUEA DATOS PARA HACER LAS VALIDACIONES ANTES DE QUE ESTOS LLEGUEN A LOS CONTROLLERS
 const validateResults = require("../utils/handleValidator");
-//! EXPRES VALIDATO NOS BRINDA LAS VALIDACIONES
+//! EXPRES VALIDATOR NOS BRINDA LAS VALIDACIONES
 
 const validatorCreateItem = [
   //! MIDDLEWARE
