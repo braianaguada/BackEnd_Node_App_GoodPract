@@ -15,8 +15,9 @@ const getItem = async (req, res) => {
 
 const getItems = async (req, res) => {
   try {
+    const user = req.user //!ESTO GRACIAS AL ADICIONAL DEL MIDDLEWARE authMiddleware
     const data = await tracksModel.find({});
-    res.send({ data });
+    res.send({ data, user });
   } catch (error) {
     handleHttpError(res, "ERROR_GET_ITEMS"); //!PUEDO AGREGAR EL NUMERO DE ERROR QUE QUIERO CON UNA COMA DESPUES DE "ERROR_GET_ITEMS" O DEJAR EL QUE DI POR DEFECTO
   }
