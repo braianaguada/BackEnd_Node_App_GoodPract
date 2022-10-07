@@ -46,6 +46,49 @@ const TracksScheme = new mongoose.Schema(
     versionKey: false,
   }
 );
+
+//*IMPLEMENTO METODO PERSONALIZADO (ME LO PERMITE MONGOOSE) PARA RELACIONAR DOS MODELOS (RUTA getItems)
+TracksScheme.statics.findAllData = function () {
+  const joinData = this.aggregate([
+    {
+      $lookup: {
+        from: "storages", //!DESDE MODEL tracks relaciono con storages (Tracks --> Storages)
+        localField: "mediaId", //!DEL MODEL tracks TOMO LA PROPIEDAD mediaId (Tracks.mediaId)
+        foreignField: "_id", //! DEL MODEL storages TOMO LA PROPIEDAD _id (Storages._id)
+        as: "audio", //!ALIAS
+      },
+    },
+    {
+      $unwind: "$audio",
+    },
+  ]);
+  return joinData;
+};
+
+//*IMPLEMENTO METODO PERSONALIZADO (ME LO PERMITE MONGOOSE) PARA RELACIONAR DOS MODELOS (RUTA getItem)
+
+TracksScheme.statics.findOneData = function (id) {
+  const joinData = this.aggregate([
+    {
+      $match: {
+        _id: mongoose.Types.ObjectId(id),
+      },
+    },
+    {
+      $lookup: {
+        from: "storages", //!DESDE MODEL tracks relaciono con storages (Tracks --> Storages)
+        localField: "mediaId", //!DEL MODEL tracks TOMO LA PROPIEDAD mediaId (Tracks.mediaId)
+        foreignField: "_id", //! DEL MODEL storages TOMO LA PROPIEDAD _id (Storages._id)
+        as: "audio", //!ALIAS
+      },
+    },
+    {
+      $unwind: "$audio",
+    },
+  ]);
+  return joinData;
+};
+
 //!IMPLEMENTE MONGOOSE-DELETE(AGREGA LA PROPIEDAD delete:false AL MODELO)
 TracksScheme.plugin(mongooseDelete, { overrideMethods: "all" }); //!overrideMethods: ME PERMITE SOBRESCRIBIR LOS METODOS NATIVOS DE MOONGOSE CON LOS DEL SOFT DELETE O BORRADO LOGICO
 module.exports = mongoose.model("tracks", TracksScheme);

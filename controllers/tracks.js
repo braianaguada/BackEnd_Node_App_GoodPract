@@ -6,7 +6,7 @@ const getItem = async (req, res) => {
   try {
     req = matchedData(req); //!ESTA FUNCION LIMPIA LA DATA CON LAS VALIDACIONES ESTABLECIDAS POR MI Y DEJA PASAR LOS DATOS REQUERIDOS POR EL MODELO Y MIS VALIDACIONES
     const { id } = req;
-    const data = await tracksModel.findById(id);
+    const data = await tracksModel.findOneData(id); //* CAMBIO METODO findById POR METODO PERSONALIZADO (findOneData)
     res.send({ data });
   } catch (error) {
     handleHttpError(res, "ERROR_GET_ITEM");
@@ -15,8 +15,8 @@ const getItem = async (req, res) => {
 
 const getItems = async (req, res) => {
   try {
-    const user = req.user //!ESTO GRACIAS AL ADICIONAL DEL MIDDLEWARE authMiddleware
-    const data = await tracksModel.find({});
+    const user = req.user; //!ESTO GRACIAS AL ADICIONAL DEL MIDDLEWARE authMiddleware
+    const data = await tracksModel.findAllData({}); //* CAMBIO METODO find POR METODO PERSONALIZADO (findAllData)
     res.send({ data, user });
   } catch (error) {
     handleHttpError(res, "ERROR_GET_ITEMS"); //!PUEDO AGREGAR EL NUMERO DE ERROR QUE QUIERO CON UNA COMA DESPUES DE "ERROR_GET_ITEMS" O DEJAR EL QUE DI POR DEFECTO
