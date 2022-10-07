@@ -1,5 +1,6 @@
 const { sequelize } = require("../../config/mysql");
 const { DataTypes } = require("sequelize");
+const Storage = require("./storage")
 
 const Track = sequelize.define(
   "tracks",
@@ -37,5 +38,27 @@ const Track = sequelize.define(
     timestamps: true,
   }
 );
+
+//*IMPLEMENTO METODO PERSONALIZADO (ME LO PERMITE MONGOOSE) PARA RELACIONAR DOS MODELOS (RUTA getItems)
+//*DEBE TENER EL MISMO NOMBRE QUE EL METODO PERSONALIZADO DE MOONGOSE PARA QUE PUEDA SER UTILIZADO POR AMBOS SIN IMPORTAR LA BASE DATOS
+
+Track.findAllData = function () {
+  Track.belongsTo(Storage,{
+    foreignKey: "mediaId",
+    as: "audio"
+  })
+  return Track.findAll({include:"audio"})
+}
+
+//*IMPLEMENTO METODO PERSONALIZADO (ME LO PERMITE MONGOOSE) PARA RELACIONAR DOS MODELOS (RUTA getItem)
+//*DEBE TENER EL MISMO NOMBRE QUE EL METODO PERSONALIZADO DE MOONGOSE PARA QUE PUEDA SER UTILIZADO POR AMBOS SIN IMPORTAR LA BASE DATOS
+
+Track.findOneData = function (id) {
+  Track.belongsTo(Storage,{
+    foreignKey: "mediaId",
+    as: "audio"
+  })
+  return Track.findOne({where: {id},include:"audio"})
+}
 
 module.exports = Track

@@ -48,6 +48,7 @@ const TracksScheme = new mongoose.Schema(
 );
 
 //*IMPLEMENTO METODO PERSONALIZADO (ME LO PERMITE MONGOOSE) PARA RELACIONAR DOS MODELOS (RUTA getItems)
+
 TracksScheme.statics.findAllData = function () {
   const joinData = this.aggregate([
     {
