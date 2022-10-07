@@ -1,11 +1,14 @@
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
+const {getProperties} = require("../utils/handlePropertiesEngine")
+const propertiesKey = getProperties()
 
 //!ACA DEBO PASAR EL OBJETO USUARIO
 const tokenSign = async (user) => {
   const sign = await jwt.sign(
     {//!TOKENIZO ESTAS 2 PROPIEDADES
-      _id: user._id,
+      //_id: user._id, //!ESTA PROPIEDAD LA VUELVO DINAMICA PARA QUE CAMBIE DE ACUERDO A SI LA BASE DE DATOS ES SQL O NOSQL
+      [propertiesKey.id] : user[propertiesKey.id],
       role: user.role,
     },
     JWT_SECRET,

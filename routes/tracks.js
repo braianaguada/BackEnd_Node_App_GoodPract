@@ -20,7 +20,7 @@ router.get("/:id", authMiddleware, validatorGetItem, getItem);
 router.post(
   "/",
   authMiddleware,
-  checkRol(["admin"]),
+  checkRol(["admin", "user"]),
   validatorCreateItem,
   createItem
 );  //!checkRol DEBE IR SIEMPRE DESPUES DE authMiddleware YA QUE LA PERSONA DEBE EXISTIR SI O SI

@@ -28,9 +28,8 @@ const registerController = async (req, res) => {
 const loginController = async (req, res) => {
   try {
     req = matchedData(req); //!SIEMPRE EN ESTA PARTE LIMPIO LA DATA QUE ME LLEGA POR BODY PARA QUE NO ME MANDEN CUALQUIER DATO O DATOS QUE NO FIGURAN EN EL MODELO
-    const user = await usersModel
-      .findOne({ email: req.email })
-      .select("password name role email"); //!CON .select ELIJO QUE PROPIEDADES MOSTRAR EN LA RESPUESTA
+    const user = await usersModel.findOne({ email: req.email });
+    // .select("password name role email"); //! CON .select ELIJO QUE PROPIEDADES MOSTRAR EN LA RESPUESTA (PARA SEQUELIZE DEBO COMENTAR ESTA LINEA XQ ESTE METODO ES EXCLUSIVO DE MONGOOSE)
     if (!user) {
       handleHttpError(res, "USER_NOT_EXIST", 404);
       return;

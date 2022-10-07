@@ -8,9 +8,9 @@ const dbConnect = () => {
     },
     (err, res) => {
         if(!err){
-            console.log('**CONECTADO A LA BASE DE DATOS**');
+            console.log('**CONECTADO A LA BASE DE DATOS NOSQL**');
         }else{
-            console.log('**NO SE PUDO CONECTAR A LA BASE DE DATOS**');
+            console.log('**NO SE PUDO CONECTAR A LA BASE DE DATOS NOSQL**');
         }
     })
 }
