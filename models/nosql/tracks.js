@@ -1,6 +1,63 @@
 const mongoose = require("mongoose");
 const mongooseDelete = require("mongoose-delete"); //!PLUGIN PARA BORRADO LOGICO MONGO
 
+/**
+ * @openapi
+ * components:
+ *   securitySchemes:
+ *    bearerAuth:
+ *      type: http
+ *      scheme: bearer
+ *      bearerFormat: JWT 
+ *   schemas:
+ *     Tracks:
+ *       type: object
+ *       required:
+ *        - name
+ *        - album
+ *        - cover
+ *        - artist
+ *        - duration
+ *        - mediaId
+ *       properties:
+ *         id:
+ *           type: uuid
+ *           example: 633d11af6dcb6653cebd9458 
+ *         name: 
+ *           type: string
+ *           example: Braian Aguada 
+ *         album:
+ *           type: string
+ *           example: For Time
+ *         cover:
+ *           type: string
+ *           example: https://cdns-images.dzcdn.net/images/cover/ec3c8ed67427064c70f67e5815b74cef/350x350.jpg 
+ *         artist: 
+ *           type: object
+ *           properties:
+ *            name:
+ *             type: string 
+ *             example: Cesar Linkero 
+ *            nickname:
+ *             type: string 
+ *             example: Cesar Linkero 
+ *            nationality:
+ *             type: string
+ *             example: Arg
+ *         duration: 
+ *           type: object
+ *           properties:
+ *            start:
+ *             type: number 
+ *             example: 1 
+ *            end:
+ *             type: number 
+ *             example: 15 
+ *         mediaId:
+ *           type: uuid
+ *           example: 633d11af6dcb6653cebd9458 
+ */
+
 const TracksScheme = new mongoose.Schema(
   {
     name: {
@@ -17,7 +74,7 @@ const TracksScheme = new mongoose.Schema(
         },
         message: "ERROR_URL",
       },
-    },
+    },  
     artist: {
       name: {
         type: String,

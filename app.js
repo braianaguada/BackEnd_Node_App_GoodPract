@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 const dbConnectNoSql = require("./config/mongo");
 const { dbConnectMySql } = require("./config/mysql");
+const { swaggerDocs } = require("./docs/swagger");
 const ENGINE_DB = process.env.ENGINE_DB;
 
 app.use(cors());
@@ -16,9 +17,10 @@ app.use("/api", require("./routes")); //! LLAMO LAS RUTAS
 
 app.listen(port, () => {
   console.log(`**CONECTADO AL SERVIDOR, EN EL PUERTO: ${port}**`); //! CONEXION A SERVIDOR
+  swaggerDocs(app, port); //!DOCUMENTACION
 });
 
-//! CONEXION A LAS BASE(S) DE DATOS
+//! CONEXION A LA(S) BASE(S) DE DATOS
 
 ENGINE_DB === "nosql" ? dbConnectNoSql() : dbConnectMySql();
 
