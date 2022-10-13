@@ -1,4 +1,5 @@
 const { matchedData } = require("express-validator");
+const { mongoose } = require("mongoose");
 const { tracksModel } = require("../models");
 const { handleHttpError } = require("../utils/handleError");
 
@@ -16,7 +17,7 @@ const getItem = async (req, res) => {
 const getItems = async (req, res) => {
   try {
     const user = req.user; //!ESTO GRACIAS AL ADICIONAL DEL MIDDLEWARE authMiddleware
-    const data = await tracksModel.findAllData({}); //* CAMBIO METODO find POR METODO PERSONALIZADO (findAllData)
+    const data = await tracksModel.find(); //* CAMBIO METODO find POR METODO PERSONALIZADO (findAllData)
     res.send({ data, user });
   } catch (error) {
     handleHttpError(res, "ERROR_GET_ITEMS"); //!PUEDO AGREGAR EL NUMERO DE ERROR QUE QUIERO CON UNA COMA DESPUES DE "ERROR_GET_ITEMS" O DEJAR EL QUE DI POR DEFECTO
@@ -39,6 +40,7 @@ const updateItems = async (req, res) => {
     const data = await tracksModel.findOneAndUpdate(id, body);
     res.send({ data });
   } catch (error) {
+    console.log(error);
     handleHttpError(res, "ERROR_UPDATE_ITEMS");
   }
 };
@@ -48,7 +50,7 @@ const deleteItems = async (req, res) => {
     req = matchedData(req);
     const { id } = req;
     const data = await tracksModel.delete({ _id: id }); //!USO METODO DELETE(METODO DE MOONGOSE-DELETE(BORRADO LOGICO))
-    res.send({ data });
+    res.send({ message: "Successful operation" });
   } catch (error) {
     handleHttpError(res, "ERROR_DELETE_ITEM");
   }

@@ -73,7 +73,7 @@ router.get("/", getItems);
 
 /**
  * @openapi
- * /api/tracks/:id:
+ * /api/tracks/{id}:
  *   get:
  *     tags:
  *       - Tracks
@@ -198,12 +198,19 @@ router.post(
 
 /**
  * @openapi
- * /api/tracks/:id:
+ * /api/tracks/{id}:
  *   put:
  *     tags:
  *       - Tracks
  *     summary: "Update a track"
- *     description: Update single track data
+ *     description: Update single track
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The track Id
  *     security:
  *      - bearerAuth: []
  *     requestBody:
@@ -215,17 +222,8 @@ router.post(
  *     responses:
  *       200:
  *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: "#/components/schemas/Tracks"
  *       403:
- *         description: Failed to update track
+ *         description: Failed to delete track
  *         content:
  *           application/json:
  *             schema:
@@ -233,7 +231,7 @@ router.post(
  *               properties:
  *                     error:
  *                       type: string
- *                       example: "ERROR_UPDATE_TRACK"
+ *                       example: "ERROR_DELETE_TRACK"
  *       402:
  *         description: Wrong token
  *         content:
@@ -266,32 +264,24 @@ router.put(
 
 /**
  * @openapi
- * /api/tracks/:id:
+ * /api/tracks/{id}:
  *   delete:
  *     tags:
  *       - Tracks
  *     summary: "Delete a track"
  *     description: Delete single track
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The track Id
  *     security:
  *      - bearerAuth: []
- *     requestBody:
- *      content:
- *        application/json:
- *          schema:
- *            $ref: '#/components/schemas/Tracks'
- *      required: true
  *     responses:
  *       200:
  *         description: Successful operation
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items:
- *                     $ref: "#/components/schemas/Tracks"
  *       403:
  *         description: Failed to delete track
  *         content:
