@@ -69,7 +69,7 @@ const { authMiddleware } = require("../middleware/session");
  *                       example: "NOT_TOKEN"
  */
 
-router.get("/", getItems);
+router.get("/", authMiddleware, getItems);
 
 /**
  * @openapi

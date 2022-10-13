@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json()); //!ME PERMITE CAPTURAR LOS OBJETOS DE LAS RUTAS
 app.use(express.static("storage")); //! ME PERMITE USAR LOS ARCHIVOS SUBIDOS AL STORAGE, EN EL SERVIDOR
 
-const port = "https://nodejsappbraianaguada.herokuapp.com/" || 3000;
+const port = process.env.PORT || 3000;
 
 app.use("/api", require("./routes")); //! LLAMO LAS RUTAS
 
@@ -22,7 +22,6 @@ app.listen(port, () => {
 
 //! CONEXION A LA(S) BASE(S) DE DATOS
 
-// ENGINE_DB === "nosql" ? dbConnectNoSql() : dbConnectMySql();
-dbConnectNoSql()
+ENGINE_DB === "nosql" ? dbConnectNoSql() : dbConnectMySql();
 
 //? Scaffold (Modelo Vista-Controlador(MVC)) - Estructura de carpetas
