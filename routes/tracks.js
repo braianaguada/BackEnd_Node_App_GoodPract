@@ -79,6 +79,13 @@ router.get("/", getItems);
  *       - Tracks
  *     summary: "Detail a track"
  *     description: Show information of a single track
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The track Id
  *     security:
  *      - bearerAuth: []
  *     responses:
