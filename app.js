@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json()); //!ME PERMITE CAPTURAR LOS OBJETOS DE LAS RUTAS
 app.use(express.static("storage")); //! ME PERMITE USAR LOS ARCHIVOS SUBIDOS AL STORAGE, EN EL SERVIDOR
 
-const port = process.env.PORT || 3000;
+const port = "https://nodejsappbraianaguada.herokuapp.com/" || 3000;
 
 app.use("/api", require("./routes")); //! LLAMO LAS RUTAS
 
