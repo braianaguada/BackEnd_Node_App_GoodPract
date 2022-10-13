@@ -22,6 +22,7 @@ app.listen(port, () => {
 
 //! CONEXION A LA(S) BASE(S) DE DATOS
 
-ENGINE_DB === "nosql" ? dbConnectNoSql() : dbConnectMySql();
+// ENGINE_DB === "nosql" ? dbConnectNoSql() : dbConnectMySql();
+dbConnectNoSql()
 
 //? Scaffold (Modelo Vista-Controlador(MVC)) - Estructura de carpetas
